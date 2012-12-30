@@ -118,7 +118,7 @@ Lizard.Map.map = function(){
 
   // And show them in their divs
   // mapView.sidebarRegion.show(iconsView.render());
-  // mapView.sidebarRegion.show(layersView.render());
+  mapView.sidebarRegion.show(layersView.render());
   mapView.leafletRegion.show(leafletView.render());
 
   // Then tell backbone to set the navigation to #map
