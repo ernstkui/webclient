@@ -1,5 +1,15 @@
 # DDSC Webclient
 
+
+## ANGULAR REWRITE
+
+As you can see below or in the repo's history, we started building DDSC with Backbone and Marionette. This choice was made based on some testing with Backbone, Ember, Ext.js and Knockout.js. Backbone seemed the leanest, least abstracted and has a lot of momentum in the webdev world.
+However, even with the help of Marionette, we were quickly doing things wrong or in the wrong way/place. This is a known and even advertised benefit/hazard of Backbone, depending on your project/personal taste/experience/expectations.
+
+An emerging alternative to Backbone and the others is [Angular.js](http://docs.angularjs.org/), a framework by Google engineers. [This Angular example](http://www.smartjava.org/examples/cpi/#/custom?year=2010&countries=6,1,4) by Jos Dirksen convinced me to experiment with it. Hence this branch!
+
+
+
 **DDSC Webclient** is a javascript application built with [Backbone](http://backbonejs.org/), [Backbone-Marionette](http://marionettejs.com/), [Twitter Bootstrap](http://twitter.github.com/bootstrap/), [jQuery](http://jquery.com/), [Leaflet](http://leafletjs.com/) and [more](https://github.com/ddsc/webclient/tree/master/app/scripts/vendor)...
 
 ## Demo
