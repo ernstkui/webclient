@@ -317,7 +317,7 @@
     </script>
 
     <script type="text/template" id="empty-graph-list-message">
-        <span class="label label-info">Nog geen grafieken geselecteerd</span>
+        <small><em>Nog geen grafieken geselecteerd</em></small>
    </script>
 
     <script type="text/template" id="template-add-extra-layer">
@@ -621,9 +621,7 @@
                         <h2 ondragover="return false;" ondragenter="return false;">Sleep je metingen hier naartoe<h2>
                     </div>
                 </div>
-                <div id="graph-control-one" class="span2">
-                  <small>Graph 1 controller</small>
-                </div>                
+                <div id="graph-control-one" class="graph-controller span2" ondrop="Lizard.Utils.DragDrop.drop(event)" ondragover="Lizard.Utils.DragDrop.allowDrop(event)"></div>
             </div>
             <div class="row-fluid">
                 <div id="drop-two" class="span10 drop empty">
@@ -631,9 +629,7 @@
                         <h2 ondragover="return false;" ondragenter="return false;">Sleep je metingen hier naartoe<h2>
                     </div>
                 </div>
-                <div id="graph-control-two" class="span2">
-                  <small>Graph 2 controller</small>
-                </div>
+                <div id="graph-control-two" class="graph-controller span2"></div>
             </div>
       </div>
       <div class="btn-toolbar pull-right">

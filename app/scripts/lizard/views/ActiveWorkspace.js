@@ -15,7 +15,7 @@ Lizard.Views.WorkspaceItem = Backbone.Marionette.ItemView.extend({
         value: that.model.get('opacity'),
         min: 0,
         max: 100,
-        range: "min",
+        range: 'min',
         step: 1,
         stop: function( event, ui ) {
           that.model.unbind('change'); // This prevents the item from re-rendering...
@@ -174,7 +174,7 @@ Lizard.Views.ActiveWorkspace = Backbone.Marionette.Layout.extend({
         </li>');
       this.buttonExtraLayersAdded = true;
     } else {
-      var button = this.workspaceItemListView.$el.find('#extra-maplayer-button')
+      var button = this.workspaceItemListView.$el.find('#extra-maplayer-button');
       button.remove();
       this.workspaceItemListView.$el.append(button);
     }

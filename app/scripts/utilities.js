@@ -97,6 +97,7 @@ Lizard.Utils.DragDrop = {
   },
   drop: function (e){
     e.preventDefault();
+    console.log('-->',e.dataTransfer.getData("Text"));
     var data_url = e.dataTransfer.getData("Text");
     var $target = $(e.target);
     $target.parent().removeClass("empty");
