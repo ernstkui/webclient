@@ -556,7 +556,7 @@
 
 
     <script id="timeserie-item-template" type="text/template">
-        <div class="timeserie-item" class="oselect" draggable="true" ondragstart=Lizard.Utils.DragDrop.drag(event) data-url="<%= timeserie.events%>">
+        <div class="timeserie-item" class="oselect" draggable="true" ondragstart=Lizard.Utils.DragDrop.drag(event) data-id="<%= timeserie.uuid %>" data-url="<%= timeserie.events%>">
         <h5>
           <i class="icon-star-empty fav"></i>&nbsp;
           <span class="add" data-url="<%= timeserie.events%>"><%= timeserie.name %></span>
@@ -617,7 +617,7 @@
         <div class="span7" id="mainRegion">
             <div class="row-fluid">
                 <div id="drop-one" class="span10 drop empty">
-                    <div class="flot-graph graph-drop" ondrop="Lizard.Utils.DragDrop.drop(event)" ondragover="Lizard.Utils.DragDrop.allowDrop(event)">
+                    <div class="flot-graph graph-drop" ondrop="Lizard.Utils.DragDrop.graphdrop(event)" ondragover="Lizard.Utils.DragDrop.allowDrop(event)">
                         <h2 ondragover="return false;" ondragenter="return false;">Sleep je metingen hier naartoe<h2>
                     </div>
                 </div>

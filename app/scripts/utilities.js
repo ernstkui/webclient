@@ -86,7 +86,6 @@ Lizard.Utils.DragDrop = {
     e.dataTransfer.setData("Text", sendThis);
     console.log(e.target);
   },
-
   allowDrop: function (e){
     e.preventDefault();
   },
@@ -94,6 +93,10 @@ Lizard.Utils.DragDrop = {
     e.preventDefault();
     var wms_layer= e.dataTransfer.getData("Text");
     var $target = $(e.target);
+  },
+  graphdrop: function(e) {
+    e.preventDefault();
+    console.log('-->', e.dataTransfer.getData('Text'));
   },
   drop: function (e){
     e.preventDefault();
