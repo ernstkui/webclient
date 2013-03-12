@@ -6,10 +6,8 @@ Lizard.Graphs.DefaultLayout = Backbone.Marionette.Layout.extend({
   regions: {
     'sidebarRegion': '#sidebarRegion',
     'mainRegion': '#mainRegion',
-    'parametersRegion': '#parametersRegion',
-    'filtersRegion': '#filtersRegion',
+    'presetsRegion': '#presetsRegion',
     'favoriteRegion': '#favoriteRegion',
-    'locationsRegion': '#locationsRegion',
     'selectionRegion': '#selectionRegion',
     'collagegraphRegion' : '#collageRegion',
     'graphControlOne': '#graph-control-one',
@@ -44,18 +42,14 @@ Lizard.Graphs.graphs = function(){
     $('#mainRegion').removeClass('span7').addClass('span9');
   });
 
-  window.graphsView = graphsView;
-
 
 
   Lizard.App.content.show(graphsView);
-  var collageView = new CollageView();
+
+  var favoritecollectionview = new Lizard.Views.FavoriteCollection();
   var timeserieView = new Lizard.Views.Timeseries();
   
   graphsView.favoriteRegion.show(favoritecollectionview.render());
-  graphsView.filtersRegion.show(filtercollectionview.render());
-  graphsView.locationsRegion.show(locationcollectionview.render());
-  graphsView.parametersRegion.show(parametercollectionview.render());
   graphsView.selectionRegion.show(timeserieView.render());
   graphsView.collagegraphRegion.show(collageView.render());
 
