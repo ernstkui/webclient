@@ -12,15 +12,14 @@ Lizard.Graphs.DefaultLayout = Backbone.Marionette.Layout.extend({
     'locationsRegion': '#locationsRegion',
     'selectionRegion': '#selectionRegion',
     'collagegraphRegion' : '#collageRegion',
+    'graphControlOne': '#graph-control-one',
+    'graphControlTwo': '#graph-control-two',
     'infomodal': '#info-modal'
-
   },
   onShow: Lizard.Visualsearch.init,
   triggers: {
     'hover #sidebar': 'ui:expand:sidebar',
-    // 'mouseleave #sidebar': 'ui:collapse:sidebar',
-    'hover #mainRegion': 'ui:expand:mainregion',
-    'mouseleave #mainRegion': 'ui:collapse:mainregion'
+    'hover #mainRegion': 'ui:expand:mainregion'
   }
 });
 
@@ -40,21 +39,14 @@ Lizard.Graphs.graphs = function(){
     $('#sidebar').removeClass('span3').addClass('span5');
     $('#mainRegion').removeClass('span9').addClass('span7');
   });
-  graphsView.on('ui:collapse:sidebar', function(args) {
-    $('#sidebar').removeClass('span5').addClass('span3');
-    $('#mainRegion').removeClass('span7').addClass('span9');
-  });
   graphsView.on('ui:expand:mainregion', function(args) {
     $('#sidebar').removeClass('span5').addClass('span3');
     $('#mainRegion').removeClass('span7').addClass('span9');
   });
-  graphsView.on('ui:collapse:mainregion', function(args) {
-    $('#sidebar').removeClass('span3').addClass('span5');
-    $('#mainRegion').removeClass('span9').addClass('span7');
-  });
-
 
   window.graphsView = graphsView;
+
+
 
   Lizard.App.content.show(graphsView);
   var collageView = new CollageView();
@@ -66,6 +58,12 @@ Lizard.Graphs.graphs = function(){
   graphsView.parametersRegion.show(parametercollectionview.render());
   graphsView.selectionRegion.show(timeserieView.render());
   graphsView.collagegraphRegion.show(collageView.render());
+
+
+  window.controllerListOne = new Lizard.Views.GraphControllerItemList();
+  window.controllerListTwo = new Lizard.Views.GraphControllerItemList();
+  graphsView.graphControlOne.show(controllerListOne.render());
+  graphsView.graphControlTwo.show(controllerListTwo.render());
 
   // var timeserieView = new Lizard.Graphs.TimeserieView();
   // graphsView.mainRegion.show(timeserieView.render());
