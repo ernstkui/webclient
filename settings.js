@@ -3,7 +3,7 @@ var extra = '?page_size=300'; //
 
 
 var domain = (domain ? domain : 'http://test.api.dijkdata.nl/api/v0/');
-var test_domain = (test_domain ? test_domain : 'http://test.api.dijkdata.nl/api/v0/');
+// var test_domain = (test_domain ? test_domain : 'http://test.api.dijkdata.nl/api/v0/');
 
 
 var settings = {
@@ -11,7 +11,7 @@ var settings = {
     locations_url: domain + 'locations/?logicalgroup=6&has_geometry=true&page_size=300',
     wms_proxy_base_url: test_domain + 'proxy/?',
     filters_url: domain +'logicalgroups/' + extra,
-    timeseries_url: domain + 'timeseries/?logicalgroup=6&page_size=300',
+    timeseries_url: domain + 'timeseries/?',
     collages_url: test_domain + 'collages/',
     workspace_url: test_domain + 'workspaces/',
 	layers_url: test_domain + 'layers/?page_size=100',
