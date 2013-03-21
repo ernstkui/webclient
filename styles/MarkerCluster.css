@@ -4,3 +4,27 @@
 	-o-transition: -o-transform 0.25s ease-out, opacity 0.25s ease-in;
 	transition: transform 0.25s ease-out, opacity 0.25s ease-in;
 	}
+
+.marker-cluster-small{
+	background-color: rgba(255, 255, 255, 0.8);
+	}
+
+.marker-cluster-medium{
+	background-color: rgba(205, 205, 205, 0.8);
+	}
+
+.marker-cluster-large {
+	background-color: rgba(155, 155, 155, 0.8);
+	}
+
+.marker-cluster-small div {
+	background-color: rgba(234, 234, 234, 0.8);
+	}
+
+.marker-cluster-medium div {
+	background-color: rgba(184, 184, 184, 0.8);
+	}
+
+.marker-cluster-large div {
+	background-color: rgba(144, 144, 144, 0.8);
+	}

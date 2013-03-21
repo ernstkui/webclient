@@ -1,73 +1,25 @@
-Lizard.Map = {};
-
+// Create default layout, including regions
 Lizard.Map.DefaultLayout = Backbone.Marionette.Layout.extend({
   template: '#map-template',
   regions: {
     'sidebarRegion': '#sidebarRegion',
     'leafletRegion': '#leafletRegion',
-    'collageRegion': '#collageRegion'
-  }
+    'modalitems' : '#location-modal-collapsables',
+    'workspaceListRegion': '#workspaceListRegion',
+    'workspaceRegion': '#workspaceRegion',
+    'extraLayerRegion' : '#extramaplayers',
+    //'annotationsRegion' : '#annotationsRegion'
+  },
+  onShow: Lizard.Visualsearch.init
 });
 
-
+// Create router
 Lizard.Map.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
-      'map': 'map'
+      'map': 'map',
+      'map/:lonlatzoom': 'map', // lonlatzoom is a commaseparated longitude/latitude/zoomlevel combination
+      'map/:lonlatzoom/:workspacekey': 'map' // workspace is a primary key that refers to a specific workspace
     }
-});
-
-
-
-
-// Model definitions
-
-var Layer = Backbone.Model.extend({
-  initialize: function() {
-    console.log('LayerModel initializing');
-  }
-});
-
-var layer1 = new Layer({
-  id:1,
-  layerName: 'AHN25',
-  layerType: 'WMS',
-  layerDescription: 'Actuele Hoogtekaart Nederland'
-});
-
-var layer2 = new Layer({
-  id:2,
-  layerName: 'Gemeentegrenzen (WMS)',
-  layerType: 'WMS',
-  layerDescription: 'Actuele Hoogtekaart Nederland'
-});
-
-var layer3 = new Layer({
-  id:3,
-  layerName: 'Waternet - Projecten - Amstel - 4.2.2. - Temperatuur',
-  layerType: 'Interactive',
-  layerDescription: 'Interactieve kaartlaag'
-});
-
-var layer4 = new Layer({
-  id:4,
-  layerName: 'HHNK - Dijken - 26.9 - Saturatie',
-  layerType: 'Interactive',
-  layerDescription: 'Interactieve kaartlaag'
-});
-
-var Layers = Backbone.Collection.extend();
-var layerCollection = new Layers([layer1, layer2, layer3, layer4]);
-
-Lizard.Map.LayersView = Backbone.Marionette.ItemView.extend({
-  initialize: function(){
-    console.log('LayersView.initialize()');
-  },
-  serializeData: function() {
-    return {
-      'title': 'Kaartlagen'
-    };
-  },
-  template: '#layersview-template'
 });
 
 
@@ -76,171 +28,112 @@ Lizard.Map.NoItemsView = Backbone.Marionette.ItemView.extend({
 });
 
 
-LayerItemView = Backbone.Marionette.ItemView.extend({
-  template: '#layeritem-template',
-  tagName: 'li',
-  className: 'drawer-item',
-  model: Layer,
-  initialize: function() {
-    console.log('LayerItemView() initializing');
-  }
-});
-
-LayersCollectionView = Backbone.Marionette.CollectionView.extend({
-  collection: layerCollection,
-  itemView: LayerItemView,
-  tagName: 'ol',
-  className: 'ui-sortable drawer-group',
-  onDomRefresh: function() {
-    $('.drawer-group').sortable({
-      'forcePlaceholderSize': true,
-      'handle': '.handle',
-      'axis': 'y'
-    });
-    $('.drawer-group').disableSelection();
-  }
-});
-
-
-
-
 Lizard.Map.IconItemView = Backbone.Marionette.ItemView.extend({
   template: '#icon-template',
   tagName: 'li'
 });
 
-Lizard.Map.IconCollectionView = Backbone.Marionette.CollectionView.extend({
-  itemView: Lizard.Map.IconItemView,
-  emptyView: Lizard.Map.NoItemsView,
-  tagName: 'ul',
-  initialize: function() {
-    console.log('IconCollectionView()', this);
-  }
-});
+// Create collection for this page
+layerCollection = new Lizard.Collections.Layer();
+window.mapCanvas = ((window.mapCanvas === undefined) ? null : window.mapCanvas);
 
-// It is highly debatable if this should be a Marionnette Itemview.
-// The functionality now allows:
-// * Location models are loaded and added to a Leaflet map. 
-// * The infobox is update on "hover"
-// * The items and their cid's (a Backbone identifier) are added to
-// a 'WorkspaceCollection' on click on a specific object.
-Lizard.Map.LeafletView = Backbone.Marionette.ItemView.extend({
-  collection: new Lizard.Collections.LocationCollection(),
-  bounds: new L.LatLngBounds(
-              new L.LatLng(53.74, 3.2849), 
-              new L.LatLng(50.9584, 7.5147)
-          ),
-  cloudmade: L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Map data &copy;' }),
-  mapCanvas: null,
-  markers: null,
-  initialize: function(){
-    console.log('LeafletView.initialize()');    
-  },
-  onDomRefresh: function() {
-    // Best moment to initialize Leaflet and other DOM-dependent stuff
-    this.mapCanvas = L.map('map', { layers: [this.cloudmade], center: new L.LatLng(52.12, 5.2), zoom: 7, maxBounds: this.bounds});
-    this.markers = new L.MarkerClusterGroup({
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
-      maxClusterRadius: 200
-    });
-    // The collection is loaded and the scope "this" is bound to the 
-    // drawonMap function.
-    this.collection.fetch({success: _.bind(this.drawonMap, this)});
-  },
-  // drawonMap takes the collection and goes through the models in it
-  // 'drawing' them on the map.
-  drawonMap: function(collection, objects){
-    var models = collection.models;
-    for (var i in models){
-      var model = models[i];
-      model.fetch({async: false});
-      var attributes = model.attributes;
-      var point = attributes.point_geometry;
-      var marker = new L.Marker(new L.LatLng(point[1], point[0]),{
-        clickable: true,
-        name: attributes.name,
-        bbModel: model,
-        code: attributes.code
-      });
-      marker.on('mouseover', updateInfo);
-      marker.on('click', selectforCollage)
-      this.markers.addLayer(marker);
-    };
-    this.mapCanvas.addLayer(this.markers);
-
-    // Event listener for updating the information in the
-    // upper right corner.
-    // only works for L.Marker objects
-    function updateInfo(e) {
-        var marker = e.target;
-        info.update(marker.valueOf().options);
-    }
-    
-    //add custom control, to show information on hover
-    // taken from http://leafletjs.com/examples/choropleth.html
-    info = L.control();
-
-    info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'infobox'); // create info div
-        this.update();
-        return this._div;
-    };
-
-    info.update = function (props) {
-        this._div.innerHTML = '<h4>Datapunt</h4>' + (props ?
-                '<b>' + props.name + '</b><br>' +
-                'Punt: ' + props.code
-                : 'Zweef over de punten');
-    };
-    
-    info.addTo(this.mapCanvas);
-
-
-    function selectforCollage(e) {
-        var marker = e.target;
-        var properties = marker.valueOf().options;
-        var wsitem = properties.bbModel;
-        wsitem.set({title: wsitem.attributes.name})
-        Collage.add(wsitem);
-    };
-
-
-    $('#map').css('height', $(window).height()-100);
-  },
-  template: '#leaflet-template'
-});
-
-// Instantiate the Leaflet Marionnette View. 
-// This way you can talk with Leaflet after initializing the map. 
+// Instantiate the Leaflet Marionnette View.
+// This way you can talk with Leaflet after initializing the map.
 // To talk with the Leaflet instance talk to -->
 // Lizard.Map.Leaflet.mapCanvas
-Lizard.Map.Leaflet = new Lizard.Map.LeafletView();
 
-Lizard.Map.map = function(){
+Lizard.Map.map = function(lonlatzoom, workspacekey){
   console.log('Lizard.Map.map()');
 
+  if (!lonlatzoom || lonlatzoom.split(',').length < 2) {
+    lonlatzoom = '5.16082763671875,51.95442214470791,7';
+  }
+
   // Instantiate Map's default layout
-  var mapView = new Lizard.Map.DefaultLayout();
+  Lizard.mapView = new Lizard.Map.DefaultLayout();
 
   // And add it to the #content div
-  Lizard.App.content.show(mapView);
+  Lizard.App.content.show(Lizard.mapView);
+
+  Lizard.workspaceView = new Lizard.Views.ActiveWorkspace();
+  extraLayersView = new Lizard.Views.LayerList({
+    collection: layerCollection,
+    workspace: Lizard.workspaceView.getCollection()
+  });
+
+  var workspaceListView = new Lizard.Views.WorkspaceCollection({
+    collection: workspaceCollection,
+    workspaceView: Lizard.workspaceView
+  });
+
+  var leafletView = new Lizard.Views.Map({
+    lon: lonlatzoom.split(',')[0],
+    lat: lonlatzoom.split(',')[1],
+    zoom: lonlatzoom.split(',')[2],
+    workspace: Lizard.workspaceView.getCollection()
+  });
 
 
-  var layersView = new LayersCollectionView();
+  if (workspacekey){
+    var selectWorkspace = function(collection) {
+      workspace = collection.get(workspacekey);
+      collection.each(function(worksp) {
+        worksp.set('selected', false);
+      });
+      workspace.set('selected', true);
+      workspace.trigger('select_workspace', workspace);
+    };
+    if (workspaceCollection.models.length > 0) {
+      selectWorkspace(workspaceCollection);
+    } else {
+      workspaceCollection.once('sync', selectWorkspace);
+    }
+  }
 
-  // And show them in their divs
-  mapView.sidebarRegion.show(layersView.render());
-  mapView.collageRegion.show(collageView.render());
-  mapView.leafletRegion.show(Lizard.Map.Leaflet.render());
+  Lizard.mapView.leafletRegion.show(leafletView.render());
 
-  $('.drawer-item').popover({
-    html: true,
-    template: '<div class="popover"><div class="arrow"></div><div class="popover-inner layersview-popover"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+  Lizard.mapView.workspaceListRegion.show(workspaceListView.render());
+  Lizard.mapView.workspaceRegion.show(Lizard.workspaceView.render());
+  Lizard.mapView.extraLayerRegion.show(extraLayersView.render());
+
+
+  // Correct place for this?
+  Lizard.Map.ddsc_layers = new Lizard.Layers.DdscMarkerLayer({
+    collection: locationCollection,
+    map: leafletView
+  });
+
+  $('.sensor-layer-toggler').click(function(e) {
+    var $icon = $(this).find('i');
+    if ($icon.hasClass('icon-check-empty')) {
+      $icon.addClass('icon-check').removeClass('icon-check-empty');
+      Lizard.Map.ddsc_layers.addToMap();
+    }
+    else {
+      $icon.addClass('icon-check-empty').removeClass('icon-check');
+      Lizard.Map.ddsc_layers.removeFromMap();
+    }
   });
 
   // Then tell backbone to set the navigation to #map
-  Backbone.history.navigate('map');
+  if(lonlatzoom && workspacekey){
+    Backbone.history.navigate('map/' + lonlatzoom + '/' + workspacekey);
+  } else if (lonlatzoom) {
+    Backbone.history.navigate('map/' + lonlatzoom);
+  } else {
+    Backbone.history.navigate('map');
+  }
+
+  Lizard.App.vent.on('mapPan', function(lonlatzoom){
+      urlfragment = Backbone.history.fragment.split('/');
+      if (urlfragment.length === 3){
+        Backbone.history.navigate('map/' + lonlatzoom + '/' + urlfragment[2]);
+      } else if (lonlatzoom) {
+      Backbone.history.navigate('map/' + lonlatzoom);
+      } else {
+        Backbone.history.navigate('map');
+      }
+    });
 };
 
 Lizard.App.addInitializer(function(){
@@ -249,4 +142,3 @@ Lizard.App.addInitializer(function(){
   });
   Lizard.App.vent.trigger('routing:started');
 });
-

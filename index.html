@@ -3,323 +3,840 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="DDSC" />
-                
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>DDSC</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <head>
+    <meta charset="utf-8">
 
-        
-        <link rel="stylesheet" href="styles/main.css">
-        <link href="styles/ui-darkness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
-        <link href="styles/bootstrap.css" rel="stylesheet">
-        <link href="styles/bootstrap-notify.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="DDSC" />
 
-        <link href="styles/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-        <!--[if IE7]>
-        <link href="styles/fontawesome/css/font-awesome-ie7.min.css" rel="stylesheet">
-        <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DDSC</title>
+    <meta name="description" content="DDSC is a initiative to display data received from sensors in levees">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-        <link href="styles/alert-blackgloss.css" rel="stylesheet">
-        <link href="styles/jquery.gridster.css" rel="stylesheet">
-        <style>
-            body {
-              padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-            }
-        </style>
+    <!--
+      ....................................................W0000K......................
+      .................................................W.NOxxxxO......................
+      .WNNNW...................................NK0Okkk0X0xxxxxxO......................
+      ....NXXXN..............................NOdooox0XOxxxxxxxxO......................
+      .......WXKKKNW......................WXOdoodOKKOxxxxxxxxxxO......................
+      ...........WXKKKKXNW............WNKOxodk0KNNKKXXXXXXXKK0O0......................
+      ................WXKKKKKKKK000OOkkxO0KXW..W......................................
+      ..........................WWWWW.................................................
+      W000000000KN.........K00000000KXW..........WNK00OOO00KXN.........WXK0OOO00KN....
+      WdoodddoooooxON......kooddoooooodOX......WKkxxxxxxxxxxxxkX.....XOxxxxxxxxxxxkX..
+      WdodXWWWNX0kood0.....kooKWWWNXKkdooOW...WOxxxxxxkkkxxxxx0W....0xxxxxxxkxxxxxxxK.
+      WdodN.......Xdoo0....kooX.......NxookW..KdxxxxkN...WNKOK.....0xxxxxkXW.WXkxxxk0W
+      WdodN........KoodN...kooX........XoooK..NxxxxxxxkO00KXW.....NxxxxxxN.....WXNW...
+      WdodN........XoooK...kooX........Wdoo0...NOxxxxxxxxxxxxOX...XdxxxxkW............
+      WdodN........XoooX...kooX........Ndoo0.....WX0OOkxxxxxxxx0..XxxxxxkW............
+      WdodN.......WkookW...kooX........OoodN....NXW...WWXKxxxxxxN.Wkxxxxx0W....XOOKN..
+      WdodN.....WKxooxN....kooX.....WXkoodX....Xkxxk0KKKK0xxxxxkW..Nkxxxxxk0KKOxxxxxOW
+      WdodkOOkkxdoox0W.....kooxOOkkxdooxON...WKxxxxxxxxxxxxxxxON....N0xxxxxxxxxxxxxON.
+      WkxxxxxxkOOKN........OxxxxxxkkOKXW.......WXK0OkkkkkkO0KN........WX0OkkkkkO0XW...
+      ................................................WWW..................WWW........
+      --------------------------------------------------------------------------------
+      DDSC webclient (http://github.com/ddsc is powered by Lizard 
+      (http://github.com/lizardsystem) and developed by 
+      Nelen & Schuurmans (http://github.com/nens).
+    -->
 
-        <link href="styles/bootstrap-responsive.css" rel="stylesheet">
-        <link href="styles/fuelux-responsive.css" rel="stylesheet">
-        <link rel="stylesheet" href="styles/leaflet.css" />
-        <!--[if lte IE 8]>
-          <link rel="stylesheet" href="styles/leaflet.ie.css" />
-        <![endif]-->
-        
-        <link rel="stylesheet" href="styles/MarkerCluster.css" />
-        <link rel="stylesheet" href="styles/MarkerCluster.Default.css" />
-        <!--[if lte IE 8]><link rel="stylesheet" href="styles/MarkerCluster.Default.ie.css" /><![endif]-->
-                
-        <script src="scripts/vendor/modernizr.min.js"></script>
+    <link href="styles/ui-darkness/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/bootstrap-notify.css" rel="stylesheet">
+    <link href="styles/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--[if IE7]>
+    <link href="styles/fontawesome/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <link rel="stylesheet" href="styles/main.css">
 
-        <!-- Template definitions -->
-        <script type="text/template" id="home-template">
-          <header class="jumbotron subhead hidden-phone hidden-tablet">
-              <div class="container">
-                <h1>Dijk Data Service Center</h1>
-                <h2 class="lead">Gateway to realtime sensor aggregation</h2>
-              </div>
-          </header>
+    <link href="styles/alert-blackgloss.css" rel="stylesheet">
+    <link href="styles/rickshaw.min.css" rel="stylesheet">
+    <link href="styles/jquery.gridster.css" rel="stylesheet">
+    <style>
+        body {
+          padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
 
-          <div class="row-fluid" id="home-search-wrapper">
-             <div class="span6">
-                <form class="form-search">
-                  <input type="text" class="input-medium search-query" autocomplete="off" placeholder="Doorzoek het DDSC" x-webkit-speech="">
-                </form>
-             </div>
-             <div class="span1 search-or-divider"><p>&nbsp;&nbsp;...of</p></div>
-             <div class="span5">
-                <button type="button" class="btn">
-                    Zoek geavanceerd
-                </button>
-                <button type="button" class="btn">
-                    Data catalogus
-                </button>                
-             </div>
+    <link href="styles/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="styles/fuelux-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/leaflet.css" />
+    <link rel="stylesheet" href="styles/leaflet.draw.css" />
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="styles/leaflet.ie.css" />
+      <link rel="stylesheet" href="leaflet.draw.ie.css" />
+    <![endif]-->
+
+    <link rel="stylesheet" href="styles/MarkerCluster.Default.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="styles/MarkerCluster.Default.ie.css" /><![endif]-->
+    <link rel="stylesheet" href="styles/MarkerCluster.css" />
+
+    <script src="scripts/vendor/modernizr.min.js"></script>
+
+    <!-- Template definitions -->
+    <script type="text/template" id="home-template">
+      <header class="subhead hidden-phone hidden-tablet">
+        <img src="images/hero-big.png"/>
+      </header>
+      <div class="row-fluid" id="home-search-wrapper">
+        <div class="span12">
+          <div class="visual_search hidden-tablet hidden-phone"></div>
+          <div class="textual_search hidden-desktop">
+            <form class="form-search">
+              <input type="text" class="input-medium search-query" autocomplete="off" placeholder="Doorzoek het DDSC" x-webkit-speech="">
+            </form>
           </div>
+        </div>
+      </div>
 
-          <div class="row-fluid" id="threecol-wrapper">
-            <section class="span4" id="leftpane">
+      <div class="row-fluid" id="homepage-search-results">
+      </div>
 
-                <h3>Top locaties <button type="button" class="btn btn-mini">Alles op de kaart tonen</button></h3>
+      <div class="row-fluid">
 
-                <ol>
-                    <li>Eemshaven</li>
-                    <li>Utrecht</li>
-                    <li>De Veenderij</li>
-                    <li>Noorderzijlvest</li>
-                    <li>Locatie 5</li>
-                    <li>Locatie 6</li>
-                    <li>Locatie 7</li>
-                    <li>Locatie 8</li>
-                    <li>Locatie 8</li>
-                    <li>Locatie 8</li>
-                </ol>
-            </section>
-            <section class="span4" id="midpane">
-                <div class="row">
-                    <h3>Alarmen</h3>
-                </div>
-                <div class="row">
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                </div>
-            </section>
-            <section class="span4" id="rightpane">
-                <div class="row">
-                    <h3>Sensoren</h3>
-                </div>
-                <div class="row">
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>
-                    <span><img src="http://lorempixel.com/50/50/"/></span>                
-                </div>
-            </section>            
-          </div>
-        </script>
-
-        <script type="text/template" id="map-template">
-          <div class="row-fluid">
-
-            <div class="span3" id="sidebar">
-                <div class="" id="sidebarRegion"></div>
-                <div class="" id="collageRegion"></div>
+        <div class="span3 measure-details">
+            <div class="measure-info-header">
+                <h4><em class="icon-bell icon-white"></em>&nbsp;Status</h4>
             </div>
-
-            <div class="span9" id="leafletRegion"></div>
-
-          </div>
-        </script>
-
-        
-        <script type="text/template" id="icon-template">
-            Some icon
-        </script>
-        
-        <script type="text/template" id="show-no-items-message-template">
-            <h4>&nbsp;</h4>
-            <p>...</p>
-        </script>
-        
-        <script type="text/template" id="iconsview-template">
-            <h4>Icons</h4>
-        </script>
-
-
-        <script type="text/template" id="leaflet-template">
-            <div id="map"></div>
-        </script>
-
-
-        <script type="text/template" id="layeritem-template">
-            <span class="action handle">
-                <i class="icon-move"></i>
-            </span>
-            <span class="content"><%= layerName %> (<%= layerType %>)</span>
-            <span class="indicator">
-                <i class="icon-eye-open"></i>
-            </span>
-        </script>
-
-        <script type="text/template" id="collageitem-template">
-            <span class="action remove">
-                <i class="icon-remove"></i>
-            </span>
-            <span class="content"><%= title %></span>
-            <span class="indicator toggle">
-                <i class="icon-ok"></i>
-            </span>
-        </script>
-
-        <script type="text/template" id="layersview-template">
-            <h4><%=title%></h4>
-        </script>
-
-
-
-    
-
-
-
-
-
-        <script type="text/template" id="testview-template">
-
-            <div class="visible-phone"><div style="height:20px;"></div></div>
-            <span id="summary">
-                <h5>Modelbinder example</h5>
-                <p>Dit is een voorbeeld van <a href="https://github.com/theironcook/Backbone.ModelBinder">model binding met de de-facto standaard</a> voor Backbone.</p>
-                <p>Verander de voor/achternaam. Het object wordt (op het blur event) bi-directioneel aangepast.</p>
-                <blockquote>
-                    <code style="white-space: pre;" />
-                </blockquote>
-            </span>
-
-            <div id="personFields">
-                <form class="form-horizontal">
-                  <div class="control-group">
-                    <label class="control-label" for="firstName">First Name</label>
-                    <div class="controls">
-                      <input type="text" name="firstName" id="firstName" placeholder="John">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="lastName">Last Name</label>
-                    <div class="controls">
-                      <input type="text" name="lastName" id="lastName" placeholder="Doe">
-                    </div>
-                  </div>
-                </form>   
-            </div>
-        </script>
-
-        <script id="node-template" type="text/template">
-            <li><a href="<%= name %>"><%= nodeName %></a></li>
-        </script>
-
-        <script id="timeserieview-template" type="text/template">
-            <div id="demo"></div>
-        </script>
-
-        <script id="filterview-template" type="text/template">
-            <label class="checkbox">
-                <input type="checkbox" <%if(selected){%>CHECKED<%}%>> <%= filtername %> <span class="state hide"><%= selected %></span>
-            </label>
-        </script>
-
-        <script id="locationview-template" type="text/template">
-            <label class="checkbox">
-                <input type="checkbox"> <%= name %>
-            </label>        
-        </script>
-
-        <script id="parameterview-template" type="text/template">
-            <label class="checkbox">
-                <input type="checkbox"> <%= parameter %>
-            </label>                
-        </script>
-
-        <script type="text/template" id="graphs-template">
-          <div class="row-fluid">
-            <div class="span3" id="sidebar">
-                <div class="" id="sidebarRegion">
-                   <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
-                            <li class="metrics-dropdown" id="filters">
-                                <a href="javascript:void(0);"><em class="icon-chevron-down"></em> Filters</a>
-                                <p data-group="filters" id="filtersRegion" class="-hide"></p>
-                            </li>
-                            <li class="metrics-dropdown" id="locations">
-                                <a href="javascript:void(0)"><em class="icon-chevron-down"></em> Locaties</a>
-                                <p data-group="locations" id="locationsRegion" class="hide"></p>
-                            </li>
-                            <li class="metrics-dropdown" id="parameters">
-                                <a href="javascript:void(0);"><em class="icon-chevron-down"></em> Parameters</a>
-                                <p data-group="parameters" id="parametersRegion" class="hide"></p>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp"> Help</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="" id="collageRegion"></div>
-            </div>
-
-            <div class="span9" id="mainRegion">
-             <h4>Grafieken</h4>
-              <div id="graphs"></div>
-            </div>
-          </div>
-        </script>
-
-        <script type="text/template" id="dashboard-template">
-            <div class="gridster">
-              <ul>
-                <li class="try" data-row="2" data-col="3" data-sizex="1" data-sizey="1"></li>
+            <div id="status-overview">
+              <ul class="homepage-list">
+                <li><span class="badge badge-important">5 alarmen actief</span></li>
+                <li><span class="badge badge-warning">20 sensoren in storing</span></li>
+                <li><span class="badge badge-success">2000 sensoren actief</span></li>
               </ul>
             </div>
-        </script>
+            <div class="measure-info-header">
+                <h4><em class="icon-globe icon-white"></em>&nbsp;Kaart</h4>
+            </div>
+            <div id="map-links">
+              <ul class="homepage-list">
+                <li>
+                  <em class="icon-globe icon-white"></em>&nbsp;<a href="#">Algemeen</a>
+                </li>
+                <li>
+                  <em class="icon-globe icon-white"></em>&nbsp;<a href="#">Actueel</a>
+                </li>
+                <li>
+                  <em class="icon-globe icon-white"></em>&nbsp;<a href="#">Valkenburg</a>
+                </li>
+              </ul>
+            </div>
 
-        <script type="text/template" id="overview-template">
-          <div class="row-fluid">
-            <div class="span12" id="dashboardRegion"></div>
+            <div class="measure-info-header">
+                <h4><em class="icon-signal icon-white"></em>&nbsp;Grafiek</h4>
+            </div>
+            <div id="graph-links">
+              <ul class="homepage-list">
+                <li><em class="icon-signal icon-white"></em>&nbsp;<a href="#">Boezem</a></li>
+                <li><em class="icon-signal icon-white"></em>&nbsp;<a href="#">Weer</a></li>
+                <li><em class="icon-signal icon-white"></em>&nbsp;<a href="#">Grechtdijk</a></li>
+                <li><em class="icon-signal icon-white"></em>&nbsp;<a href="#">Buitenwater</a></li>
+              </ul>  
+            </div>
+            <div class="measure-info-header">
+                <h4><em class="icon-th icon-white"></em>&nbsp;Dashboard</h4>
+            </div>
+            <div id="dashboard-links">
+              <ul class="homepage-list">
+                <li><em class="icon-th icon-white"></em>&nbsp;<a href="#dashboard">DAM</a></li>
+                <li><em class="icon-th icon-white"></em>&nbsp;<a href="#dashboard">DMC systeem</a></li>
+                <li><em class="icon-th icon-white"></em>&nbsp;<a href="#dashboard">Grechtdijk</a></li>
+              </ul>  
+            </div>            
+        </div>     
+        <div class="span9 measure-details">
+          <div class="measure-info-header">
+              <h4><em class="icon-rss"></em>&nbsp;Livestream</h4>
+          </div>
+          <div id="liveFeed">
+            <div class="row-fluid">
+              <div class="span1 hidden-phone hide-tablet"><em class="icon-globe icon-white"></em></div>
+              <div class="span6">
+                <strong><a href="#">Nieuwe sensor aangemaakt</a></strong><br/>
+                <small>Oost Z2162 Kruin</small>
+              </div>
+              <div class="span3 text-right pull-right"><small class="muted">3 minuten geleden</small></div>
+            </div>
+
+            <div class="row-fluid odd">
+              <div class="span1 hidden-phone hide-tablet"><em class="icon-bell icon-white"></em></div>
+              <div class="span6">
+                <strong><a href="#">Alarm</a></strong><br/>
+                <small>Boezem, Amstelland</small>
+              </div>
+              <div class="span3 text-right pull-right"><small class="muted">9 minuten geleden</small></div>
+            </div>
+
+            <div class="row-fluid">
+              <div class="span1 hidden-phone hide-tablet"><em class="icon-comment icon-white"></em></div>
+              <div class="span6">
+                <strong><a href="#">Annotatie toegevoegd</a></strong><br/>
+                <small>Grechtdijk, Woerden, NL</small>
+              </div>
+              <div class="span3 text-right pull-right"><small class="muted">12 minuten geleden</small></div>
+            </div>
+
+            <div class="row-fluid odd">
+              <div class="span1 hidden-phone hide-tablet"><em class="icon-info-sign icon-white"></em></div>
+              <div class="span6">
+                <strong><a href="#">Melding</a></strong><br/>
+                <small>Afgelopen 24 uur 33 locaties zonder metingen</small>
+              </div>
+              <div class="span3 text-right pull-right"><small class="muted">1 uur geleden</small></div>
+            </div>
+
+            <div class="row-fluid">
+              <div class="span1 hidden-phone hide-tablet"><em class="icon-info-sign icon-white"></em></div>
+              <div class="span6">
+                <strong><a href="#">Melding</a></strong><br/>
+                <small>Dijk geinspecteerd, geen bijzonderheden</small>
+              </div>
+              <div class="span3 text-right pull-right"><small class="muted">1 uur, 15 minuten geleden</small></div>
+            </div>
+          </div>
+        </div>
+      <div class="span3 measure-details" id="measure-alarm">
+      </div>
+
+      <div class="span3 measure-details" id="measure-new-measurement">
+      </div>
+
+      <div class="span3 measure-details" id="measure-status">
+      </div>
+
+      </div>
+    </script>
+
+    <script type="text/template" id="homepage-item-template">
+        <em class="<%=icon%> icon-white"></em>&nbsp;<a href="#map/_/<%=id%> "><%=name%></a>
+    </script>
+
+    <script type="text/template" id="homepage-searchresult-template">
+      <div class="span12 measure-details" id="homepage-searchresults">
+        <div class="measure-info-header"> 
+           <h4><em class="icon-search icon-white"></em>&nbsp;Zoekresultaten voor "<%=term%>"</h4>
+        </div>
+        <div id="graphs">
+           <ul class="homepage-list">
+             <% for(var name in data) { %>
+                 <li><em class="icon-signal icon-white"></em>&nbsp;<a href="#graph"><%= data[name].attributes.name %></a></li>
+             <% } %>
+           </ul>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="homepage-status-template">
+      <ul class="homepage-list">
+        <li><span class="badge badge-important"><%= alarms %> alarmen actief</span></li>
+        <li><span class="badge badge-warning"><%= storingen %> in storing</span></li>
+        <li><span class="badge badge-success"><%= activeSensors %> sensoren actief</span></li>
+      </ul>
+    </script>
+
+
+    <script type="text/template" id="homepage-livefeed-template">
+        <div class="span1 hidden-phone hide-tablet"><em class="<%=icon %> icon-white"></em></div>
+        <div class="span6">
+          <strong><a href="<%=href %>"><%=title %></a></strong><br/>
+          <small><%=text %></small>
+        </div>
+        <div class="span3 text-right pull-right"><small class="muted"><%=time %></small></div>
+    </script>
+
+
+
+    <script type="text/template" id="map-template">
+      <div class="row-fluid">
+
+        <div class="span3" id="sidebar">
+            <div class="" id="sidebarRegion">
+                <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
+                  <li class="metrics-dropdown mappage" id="favorite">
+                      <a href="javascript:void(0);"><em class="icon-chevron-down toggle"></em> <i class="icon-list"></i> Kaarten</a>
+                  </li>
+                  <div class="measurement-items" data-group="workspace" id="workspaceListRegion"></div>
+                  <li class="metrics-dropdown mappage">
+                      <a href="javascript:void(0);"><em class="icon-chevron-down toggle"></em> <i class="icon-globe"></i> Kaartlagen <br><%=name%></a>
+                  </li>
+                  <div class="measurement-items" data-group="workspaceitem"  id="workspaceRegion"></div>
+                  <div id="extramaplayers-button" class="add-map-item drawer-handle">
+                    <div class="layer-item">
+                      <span class="action handle "><i class="icon-plus"></i></span>
+                      Voeg Extra Kaartlaag toe
+                      <div id="extramodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true">
+                        <div id="extramaplayers" class="modal-body"></div>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+                <br class="spacer">
+                <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
+                    <div data-group="ddsc_layers" class="" id="ddsc_temp">
+                    <ul><li>
+                      <div class="ddsc-item oselect sensor-layer-toggler">
+                      <h5><i class="icon-check"></i>&nbsp;Sensoren <span class="pull-right badge badge-info">192</span></h5>
+                      </div>
+                      <div id="info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true"></div>
+                  </li><li>
+                      <div class="ddsc-item oselect">
+                           <h5><i class="icon-check-empty"></i>&nbsp;Storingen<span class="pull-right badge badge-warning">5</span></h5>
+                      </div>
+                      <div id="info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true"></div>
+                  </li><li>
+                      <div class="ddsc-item oselect alarm-layer-toggler">
+                      <h5><i class="icon-check"></i>&nbsp;Alarmen<span class="pull-right badge badge-important">2</span></h5>
+                      </div>
+                      <div id="info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true"></div>
+                  </li><li>
+                      <div class="ddsc-item oselect annotation-layer-toggler">
+                      <h5><i class="icon-check-empty"></i>&nbsp;Annotaties <span class="badge badge-default pull-right">6 </span></h5>
+                      </div>
+                      <div id="info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true"></div>
+                  </li></ul></div>
+                </ul>
+            </div>
+            <div class="" id="collageRegion"></div>
+        </div>
+        <div class="span9" id="">
+            <div class="row-fluid">
+                <div class="span12 visual_search hidden-phone hidden-tablet"></div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12" id="leafletRegion"></div>
+                <!--<div class="span2 sidenav" id="annotationsRegion"></div>-->
+            </div>
+        </div>
+
+        <div id="location-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true">
+            <div id="location-modal-header" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="location-modal-label"></h3>
+            </div>
+            <div id="location-modal-body" class="modal-body">
+                <div id="modal-graph-wrapper" class="hidden">
+                    <div class="flot-graph modal-graph"></div>
+                </div>
+                <div id="location-modal-collapsables">
+                </div>
+            </div>
+            <div id="location-modal-footer" class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="template-layout-active-workspace">
+    </script>
+
+    <script type="text/template" id="empty-workspace-list-message">
+        <i>Kies een kaart of extra kaartlaag</i>
+    </script>
+
+    <script type="text/template" id="template-add-extra-layer">
+        <i>Kies een kaart of extra kaartlaag</i>
+    </script>
+
+
+    <script type="text/template" id="tabular-template">
+      <div class="row-fluid">
+        <div class="span12" id="tabularRegion">
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td colspan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="icon-template">
+        Some icon
+    </script>
+
+    <script type="text/template" id="favorite-item-template">
+      <div class="favorite-item oselect">
+        <h5 data-toggle="collapse" data-target="#<%=favorite.uuid%>"><i class="favstar icon-star"></i>&nbsp;<%= favorite.name %></h5>
+        <div id="<%=favorite.uuid%>" class="collapse">
+          <ul class="timeserie-actions">
+            <li class="add dropdown">
+              <i class="icon-plus"></i>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<i>Voeg toe aan collage</i><b class="caret"></b>
+			  </a>
+			</li>
+			<ul class="dropdown-menu">
+              <li class="about-menu"><a href="#logout"></a></li>
+              <li><a href="#account" target="">Uw gegevens</a></li>
+			  <li class="divider"></li>
+			  <li class="nav-header">DDSC</li>
+			  <li><a href="javascript:void(0)" data-toggle="modal"
+					 data-target="#modalHelp">Help</a>
+			  </li>
+              <li><a href="#">Uitloggen</a></li>
+            </ul>
+
+            <li class="goto hidden">
+              <i class="icon-map-marker"></i> Ga naar
+            </li>
+          </ul>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="show-no-items-message-template">
+        <h4>&nbsp;</h4>
+        <p>...</p>
+    </script>
+
+    <script type="text/template" id="iconsview-template">
+        <h4>Icons</h4>
+    </script>
+
+
+    <script type="text/template" id="leaflet-template">
+        <div id="map" style="height:90%;"></div>
+    </script>
+
+    <script type="text/template" id="leaflet-annotation-template">
+        <div class="span11">
+              <fieldset>
+                <textarea namerows="4" id="annotation-textarea" placeholder="Uw annotatie" style="resize:none;"></textarea>
+                <span class="help-block"><small>Gebruik <em>#tag</em> om te taggen</small></span>
+                <div class="file-dropzone" style="background-color:#f8f8f8;border:1px dashed #ccc;width:205px;height:20px;">
+                  <span>Sleep hier uw bestand</span>
+                </div>
+
+                <label class="radio inline">
+                  <input type="radio" id="scope" value="public"> Openbaar
+                </label>
+                <label class="radio inline controls-row">
+                  <input type="radio" id="scope" value="private" checked> Privé
+                </label>
+                <button type="submit" class="btn spacer btn-small pull-right btn-primary">Opslaan</button>
+              </fieldset>
+        </div>
+    </script>
+
+    <script type="text/template" id="layeritem-template">
+	  <div class="layer-item">
+        <span class="action handle">
+            <i class="icon-globe"></i>
+        </span>
+        <span class="content handle"><%= display_name %></span>
+        <span class="indicator">
+            <i class="<% if(addedToMap) { %>icon-plus<% } else { %>icon-minus<%  } %>"></i>
+        </span>
+	  </div>
+    </script>
+
+    <script type="text/template" id="workspaceitem-template">
+      <div class="layer-item <% if(selected) { %>selected<% } %>">
+        <span class="action handle indicator">
+            <i class="icon-check<% if(!visibility) { %>-empty<%  } %>"></i>
+        </span>
+        <span class="content"><%= display_name %>&nbsp;<i class="<% if(selected) { %>icon-info-sign<% } %>"></i></span>
+        <span class="toggle-layer-configuration chevron-right">
+          <i class="icon-chevron-right"></i>
+        </span>
+        <div class="layer-configuration hide">
+          <div>
+            <div class="opacity-slider" style="margin-top:2px;"></div>
+          </div>
+          <div class="spacer">
+            <button type="button" class="btn btn-mini btn-danger btn-delete-layer">Verwijderen</button>
           </div>          
-        </script>
+        </div>
+      </div>
+    </script>
 
-        <script type="text/template" id="account-template">
-          <h4>Uw gegevens</h4>
-        </script>
+    <script type="text/template" id="workspace-template">
+      <div class="layer-item <% if(selected) { %>selected<% } %>">
+        <span class="action handle">
+            <i class="icon-list"></i>
+        </span>
+        <span class="content"><%= name %></span>
+          <span class="indicator"></span>
 
-        <script type="text/template" id="help-template">
-          <h4>Help</h4>
-        </script>
+      </div>
+    </script>
 
-    </head>
+    <script type="text/template" id="collage-template">
+        <div class="layer-item <% if(selected) { %>selected<% } %>">
+        <span class="action handle">
+            <i class="icon-signal"></i>
+        </span>
+            <span class="content"><%= name %></span>
+            <span class="indicator"></span>
+        </div>
+    </script>
+
+
+    <script type="text/template" id="collageitem-template">
+      <span class="action remove">
+        <i class="icon-remove"></i>
+      </span>
+      <span class="content"><%= title %></span>
+      <span class="indicator toggle">
+        <i class="icon-ok "></i>
+      </span>
+    </script>
+
+    <script type="text/template" id="layersview-template">
+      <h4><%=title%></h4>
+    </script>
+
+    <script type="text/template" id="info-modal-template">
+      <div id="info-modal-header" class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="info-modal-label">Informatie</h3>
+     </div>
+      <div id="info-modal-body" class="modal-body">
+        Info
+      </div>
+      <div id="info-modal-footer" class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Sluit</button>
+      </div>
+    </script>
+
+
+    <script type="text/template" id="location-modal-template">
+    </script>
+
+    <script type="text/template" id="location-modal-timeserie">
+        <div class="timeserie-item oselect">
+            <h5 class="modaltimeserie">
+            <i class="icon-star-empty fav"></i> &nbsp;
+              <span class="graph-this" data-url="<%= timeserie.events%>">
+                <i class="icon-bar-chart"></i>&nbsp;<%= timeserie.name %>
+              </span>
+              <span class="pull-right">
+                <span class="badge badge-info"><%= Math.floor(Math.random() * 10)/10 %></span>
+                <i class="icon-comment"></i>
+                <span class="miniscule"><%= Math.floor(Math.random() * 10) %>
+                </span>
+              </span>
+            </h5>
+        </div>
+    </script>
+
+    <script type="text/template" id="location-popup-timeserie">
+        <div class="timeserie-item oselect">
+            <h5 class="popup-toggle" data-url="<%= timeserie.events %>"><i class="icon-bar-chart">
+            </i>&nbsp;<%= timeserie.name %>
+              <span class="pull-right">
+                <span class="badge badge-info"><%= format_value(timeserie.latest_value) %></span>
+                <i class="icon-comment"></i>
+                <span class="miniscule"><%= Math.floor(Math.pow(Math.random(),2) * 10) %></span>
+              </span>
+            </h5>
+        </div>
+    </script>
+
+
+    <script id="node-template" type="text/template">
+        <li><a href="<%= name %>"><%= nodeName %></a></li>
+    </script>
+
+    <script id="timeserie-graph-template" type="text/template">
+        <div id="demo"></div>
+    </script>
+
+    <script id="filterview-template" type="text/template">
+        <label class="checkbox">
+            <input class="hide" type="checkbox" class="filterCheckbox" <%if(selected){%>class="selected" CHECKED<%}%>><i class="icon-tag"></i> <%= name %> <span class="state hide"><%= selected %></span>
+        </label>
+    </script>
+
+    <script id="locationview-template" type="text/template">
+        <label class="checkbox">
+            <input class="hide" type="checkbox" class="filterCheckbox" <%if(selected){%>class="selected" CHECKED<%}%>><i class="icon-globe"></i> <%= name %> <span class="state hide"><%= selected %></span>
+        </label>
+    </script>
+
+
+    <script id="timeserie-item-template" type="text/template">
+        <div class="timeserie-item" class="oselect" data-url="<%= timeserie.events%>">
+        <h5>
+          <i class="icon-star-empty fav"></i>&nbsp;
+          <span class="add" data-url="<%= timeserie.events%>"><%= timeserie.name %></span>
+          <i class="icon-question-sign info pull-right"></i>
+        </h5>
+        </div>
+        <div id="info-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true"></div>
+    </script>
+
+    <script id="parameterview-template" type="text/template">
+        <label class="checkbox">
+            <input class="hide" type="checkbox" class="filterCheckbox" <%if(selected){%>class="selected" CHECKED<%}%>>
+            <i class="icon-flag"></i> <% if(!description){ %> Geen naam <% } else { %><%=description%> <% } %>
+            <span class="state hide"><%= selected %></span>
+        </label>
+    </script>
+
+    <script type="text/template" id="graphs-template">
+      <div class="row-fluid">
+        <div class="span5" id="sidebar">
+            <div class="" id="sidebarRegion">
+                <ul class="nav nav-list sidenav transition" rel="popover" data-content="Use the sidebar to choose dimensions and variables." data-original-title="Sidebar" data-placement="right" data-trigger="manual">
+                    <li class="metrics-dropdown" id="presets">
+                        <a href="javascript:void(0);"><em class="icon-chevron-down toggle"></em> <i class="icon-signal"></i> Grafieken</a>
+                    </li>
+                    <div data-group="presets" class="measurement-items" id="presetsRegion"></div>
+                    <li class="metrics-dropdown" id="favorites">
+                        <a href="javascript:void(0);"><em class="icon-chevron-down toggle"></em> <i class="icon-star"></i> Favorieten</a>
+                    </li>
+                    <div data-group="favorites" class="hide measurement-items" id="favoriteRegion"></div>
+                    <li class="metrics-dropdown" id="selection">
+                        <a href="javascript:void(0);"><em class="icon-chevron-down toggle"></em> <i class="icon-bar-chart"></i> Tijdreeksen</a>
+                    </li>
+                    <div class="measurement-items">
+                        <div class="row-fluid">
+                            <div class="span12 visual_search hidden-phone hidden-tablet"></div>
+                        </div>
+                    </div>
+                    <div data-group="selection" class="measurement-items " id="selectionRegion"></div>
+                </ul>
+                </div>
+                <div class="" id="collageRegion"></div>
+        </div>
+
+        <div class="span7" id="mainRegion">
+            <div class="row-fluid">
+                <div id="drop-one" class="span12 drop empty">
+                    <div class="flot-graph graph-drop">
+                        <h2 ondragover="return false;" ondragenter="return false;">Sleep je metingen hier naartoe</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div id="drop-two" class="span12 drop empty">
+                    <div class="flot-graph graph-drop" >
+                        <h2>Sleep je metingen hier naartoe</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-toolbar pull-right">
+          <button type="button" id="reset-collage" class="btn btn-danger">Wis collage</button>
+          <button type="button" id="save-collage" class="btn">Sla collage op</button>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="graph-slot"></script>
+
+    <script type="text/template" id="drop-boxes"></script>
+
+    <script type="text/template" id="dashboard-template">
+      <div class="row-fluid">
+        <div class="span12" id="dashboardRegion"></div>
+      </div>
+    </script>
+
+    <script type="text/template" id="widget-configuration">
+      <i class="widget-configuration icon-cog" style="color:#ccc;cursor:pointer;position:absolute;right:0px;padding:5px;"></i>
+
+        <div class="row-fluid offset1">
+            <div class="span8">
+            <h5>Parameters instellen</h5>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                  Verplaatsing
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Debiet
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Volume
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Sulfiet
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Temperatuur
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                  Druk
+                </label>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="widgetview-template">
+      <!--i class="widget-configuration icon-cog" style="color:#ccc;cursor:pointer;position:absolute;right:0px;padding:5px;"></i-->
+      <div class="widget" id="<%= widgetId %>"></div>
+    </script>
+
+    <script type="text/template" id="gagewidget-template">
+
+    </script>
+
+    <script type="text/template" id="dashboard-logo">
+      <img style="width:220px;height:150px" src="/images/DMC_logo.jpg"></img>
+    </script>
+
+    <script type="text/template" id="dashboard-list">
+      <h4>Dashboards:</h4>
+      <b><a href="#">DMC systeem</a></b><br>
+      <a href="#">DAM</a><br>
+      <a href="#">Grechtdijk</a>
+    </script>
+
+    <script type="text/template" id="graph-widget">
+      <div class="row-fluid">
+        <div id="widget-graph" class="drop">
+          <div class="flot-graph graph-drop">
+            <h2> Leeg </h2>
+          </div>
+        </div>
+      </div>
+    </script>
+
+
+    <script type="text/template" id="dmc-overview">
+      <div class="widget-overview" style="width:50%;height:100%;overflow:hidden;float:left">
+        <h4>Linker buis</h4>
+        <lu>
+          <li class='theader'>Dijk</lu>
+          <li><span class='tlabel'>Waterniveau</span><span class='tvalue'><%= waterst_l.toFixed(2) %></span><span>mNAP</span></li>
+          <li><span class='tlabel'>Temperatuur</span><span class='tvalue'><%= temp_l.toFixed(2) %></span><span>&degC</span></li>
+          <br>
+          <li class='theader'>Pomp</li>
+          <li><span class='tlabel'>Status</span><td><span class="label"> - </span></li>
+          <li><span class='tlabel'>Persdruk</span><span class='tvalue'> - </span><span>bar</span></li>
+          <li><span class='tlabel'>Debiet vandaag</span><span class='tvalue'><%= debiet_l.toFixed(0) %></span>liter</span></li>
+        </lu>
+      </div>
+      <div class="widget-overview" style="width:50%;height:100%;overflow:hidden;float:right">
+        <h4>Rechter buis</h4>
+        <lu>
+          <li class='theader'>Dijk</lu>
+        <li><span class='tlabel'>Waterniveau</span><span class='tvalue'><%= waterst_r.toFixed(2) %></span><span>mNAP</span></li>
+        <li><span class='tlabel'>Temperatuur</span><span class='tvalue'><%= temp_r.toFixed(2) %></span><span>&degC</span></li>
+        <br>
+        <li class='theader'>Pomp</li>
+        <li><span class='tlabel'>Status</span><td><span class="label"> - </span></li>
+        <li><span class='tlabel'>Persdruk</span><span class='tvalue'> - </span><span>bar</span></li>
+        <li><span class='tlabel'>Debiet vandaag</span><span class='tvalue'><%= debiet_r.toFixed(0) %></span><span>liter</span></li>
+        </lu>
+      </div>
+    </script>
+
+    <script type="text/template" id="dmc-status">
+      <h4>Status DMC</h4>
+      <lu>
+        <li><span class="badge badge-success">Geen Storing</span></li>
+        <li><span class="badge badge-warning">Run test</span></li>
+        <li><span class="badge badge-warning">Kastdeur open</span></li>
+        <li><span class="badge badge-warning">2 meldingen</span></li>
+      </lu>
+    </script>
+
+    <script type="text/template" id="settings-button">
+      <button style="margin:10px" class="btn" type="button">Instellingen</button>
+    </script>
+
+
+    <script type="text/template" id="image-dmc">
+      <img style="margin:10px;width:570px;height:310px" src="/images/DMC.png"></img>
+    </script>
+
+    <script type="text/template" id="account-template">
+      <h4>Uw gegevens</h4>
+    </script>
+
+	<script type="text/template" id="menu-template">
+      <ul class="nav">
+        <li class="map-menu"><a href="#map"><em class="icon-map-marker icon-white"></em>&nbsp;Kaart</a></li>
+        <li class="graphs-menu"><a href="#graphs"><em class="icon-signal icon-white"></em> Grafieken</a></li>
+        <li class="overview-menu"><a href="#overview"><em class="icon-bell icon-white"></em> Overzichten</a></li>
+
+      </ul>
+      <ul class="nav pull-right">
+        <li class="dropdown" id="loginRegion">
+        </li>
+      </ul>
+	</script>
+
+	<script type="text/template" id="loggedin-template">
+      <% if (authenticated === true) { %>
+      <a id="account-dropdown" class="dropdown-toggle" data-toggle="dropdown"
+		 href="#">
+		<span id="logout"><%= user.first_name %> <%= user.last_name %>
+		  <i class="icon-user icon-white"></i>
+		  <b class="icon-caret-down icon-white"></b>
+		</span>
+	  </a>
+	  <ul class="dropdown-menu">
+		<li><a href="#account" target="">Uw gegevens</a></li>
+		<li class="divider"></li>
+		<li class="nav-header">DDSC</li>
+		<li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
+		<li><a href="#" id="logout">Uitloggen</a></li>
+	  </ul>
+    <% } else { %>
+    <a id="login" href="#">
+    <span id="login">Log in
+      <i class="icon-user icon-white"></i>
+    </span>
+    </a>
+    <% } %>
+	</script>
+
+    <script type="text/template" id="help-template">
+      <h4>Help</h4>
+    </script>
+
+    <script type="text/template" id="annotations-template">
+      <p>Annotaties</p>
+      <%if(isLoading){%>
+          <span class="lazy loading" style="width: 100%; height: 100px;"></span>
+      <%}else{%>
+          <p>Er zijn <strong><%= annotationsCount %></strong> notities gevonden.</p>
+      <%}%>
+      <%if(annotationsCount > 0){%>
+          <button type="btn btn-info">Bekijk annotaties</button>
+      <%}%>
+    </script>
+
+  </head>
     <body>
-    
+
     <!-- Modals - not shown on page load -->
     <div class="modal hide fade" id="modalHelp">
         <div class="modal-header">
@@ -328,7 +845,8 @@
         </div>
         <div class="modal-body">
             <div class="textcenter">
-                <iframe width="480" height="360" src="http://www.youtube.com/embed/rl002LdQZis" frameborder="0" allowfullscreen></iframe>
+                <!-- Switched off for improve load time. Better create iframe on opening of help popup
+                <iframe width="480" height="360" src="http://www.youtube.com/embed/rl002LdQZis" frameborder="0" allowfullscreen></iframe>-->
             </div>
             <p>
                 <h4>Aanvullende informatie</h4>
@@ -341,124 +859,93 @@
         <div class="modal-footer">
             <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
         </div>
-    </div>    
-    
-    
-    
-    
-    
-    
-    
-      <div id="header">
-        <div class="navbar navbar-inverse navbar-fixed-top" style="z-index: 10;">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="#">DDSC</a>
+    </div>
 
-                    <div class="nav-collapse collapse">
 
-                        <ul class="nav" id="menu">
-                            <li class="home-menu"><a href="#"><em class="icon-home icon-white"></em>&nbsp;Home</a></li>
-                            
-                            <li class="map-menu"><a href="#map"><em class="icon-map-marker icon-white"></em>&nbsp;Kaart</a></li>
-                            <li class="graphs-menu"><a href="#graphs"><em class="icon-signal icon-white"></em> Grafieken</a></li>
-                            <li class="overview-menu"><a href="#overview"><em class="icon-bell icon-white"></em> Overzichten</a></li>
-                            <!-- <li class="manage-menu"><a href="#manage">Beheer</a></li> -->
-                        </ul>
+    <div id="header">
+      <div class="navbar navbar-inverse navbar-fixed-top" style="z-index: 10;">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <a href="#"><div id="brand" href="#"></div></a>
 
-                        <ul class="nav pull-right">
-                            
-                            <form class="navbar-form pull-right">
-                            <label for="searchbox" class="hide">Zoeken</label>
-                            <input id="searchbox" class="input-large" style="height:30px;" type="text" placeholder="Zoeken" autocomplete="off">
-                            </form>
-                            
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bastiaan Roos <i class="icon-user icon-white"></i><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                <li class="about-menu"><a href="#logout"></a></li>
-                                    <li><a href="#account" target="">Uw gegevens</a></li>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li class="nav-header">DDSC</li>
-                                    <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalHelp">Help</a></li>
-                                    <li><a href="#">Uitloggen</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/.nav-collapse -->
-                </div>
+            <div class="nav-collapse collapse" id="menu-bar">
+      			  <ul class="nav">
+        				<li class="map-menu"><a href="#map"><em class="icon-map-marker icon-white"></em>&nbsp;Kaart</a></li>
+        				<li class="graphs-menu"><a href="#graphs"><em class="icon-signal icon-white"></em> Grafiek</a></li>
+                <!-- DISABLING FOR NOW <li class="tabular-menu"><a href="#tabular"><em class="icon-list icon-white"></em> Tabel</a></li> -->
+        				<li class="dashboard-menu"><a href="#dashboard"><em class="icon-th icon-white"></em> Dashboard</a></li>
+      			  </ul>
+      			  <ul class="nav pull-right">
+        				<li class="dropdown" id="loginRegion"></li>
+      			  </ul>
             </div>
+		  </div>
         </div>
       </div>
-    
-      
+
+
       <div class="container">
         <div class='notifications top-right'></div>
         <div id="content">
+          Loading....
         </div>
-        <div class="row-fluid footer">
-            <span class="warning">VIEWING IN <p class="visible-desktop">DESKTOP MODE</p><p class="visible-tablet">TABLET MODE</p><p class="visible-phone">PHONE MODE</p></span>
-            <span class="pull-right">&copy; 2012-2013 Stichting IJkdijk en partners</span>
+        <div class="row-fluid spacer footer">
+            <span>
+                <a href="http://lizard.net">Powered by <img id="lizardlogo" src="images/lizard_logo.png" /></a>
+            </span>
+            <span class="warning pull-right"><p class="visible-desktop">DESKTOP MODE</p><p class="visible-tablet">TABLET MODE</p><p class="visible-phone">PHONE MODE</p></span>
         </div>
       </div>
-    
+
         <!--[if lt IE 10]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-        <![endif]-->        
-        
+        <![endif]-->
+
         <!-- Loading JS at the end of the file -->
         <!-- <script src="http://use.edgefonts.net/andika.js"></script> -->
         <!-- <script src="http://use.edgefonts.net/arvo.js"></script> -->
-        
+
         <!-- jQuery -->
         <script src="scripts/vendor/jquery-1.8.3.js"></script>
         <script src="scripts/vendor/jquerypp.js"></script>
+        <script src="scripts/vendor/jquery.xml2json.js"></script>
+        <!-- Lizard globals, order matters -->
+        <script src="localsettings.js"></script>
+        <script src="settings.js"></script>
 
         <!-- jQuery UI and touch support -->
-        <script src="scripts/vendor/jquery-ui-1.9.2.custom.js"></script>
+        <script src="scripts/vendor/jquery-ui-1.9.2.min.js"></script>
         <script src="scripts/vendor/jquery.ui.touch-punch.js"></script>
 
-        <!-- jsTree -->
-        <script src="scripts/vendor/jstree.js"></script>        
+        <!-- Hammer.js for touch supporting extra gestures -->
+        <script src="scripts/vendor/jquery.hammer.min.js"></script>
+        <script src="scripts/vendor/hammer.min.js"></script>
 
-        <!-- jQuery-based i18n -->
+
+         <!-- jQuery-based i18n  -->
         <script src="scripts/vendor/globalize.js"></script>
-        <script src="scripts/vendor/cultures/globalize.cultures.js"></script>
+        <script src="scripts/vendor/cultures/globalize.culture.nl.js"></script>
 
         <!-- Slippy map rendering alternative to OpenLayers -->
+        <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
         <script src="scripts/vendor/leaflet.js"></script>
         <script src="scripts/vendor/leaflet.markercluster-src.js"></script>
+        <script src="scripts/vendor/leaflet.draw.js"></script>
+        <script src="scripts/vendor/leaflet.google.js"></script>
+        <script src="scripts/vendor/Control.FullScreen.js"></script>
         <script src="scripts/vendor/proj4js-combined.js"></script>
         <script src="scripts/vendor/tile.stamen.js"></script>
-
-        <!-- The most versatile graph library around -->
-            <!--[if lte IE 8]><script src="scripts/vendor/r2d3.v2.js"></script><![endif]-->
-        <script src="scripts/vendor/d3.v2.js"></script>
-
-        <!-- Powerful time-series filtering tool -->
-        <script src="scripts/vendor/crossfilter.js"></script>
-
-        <!-- Higher level D3-based graphing library with Crossfilter support  -->
-        <script src="scripts/vendor/dc.min.js"></script>
 
         <!-- The most versatile graph library around -->
         <script src="scripts/vendor/raphael.js"></script>
 
         <!-- Gauges lib based on raphael -->
-        <script src="scripts/vendor/justgage.1.0.1.js"></script>        
-                        
-        <!-- The most versatile graph library around, depends on Raphael.js -->
-        <script src="scripts/vendor/morris.min.js"></script>
-
-        <!-- Timeserie visualization lib -->
-        <script src="scripts/vendor/cubism.js"></script>        
+        <script src="scripts/vendor/justgage.1.0.1.js"></script>
 
         <!-- Gauges in JS by http://bernii.github.com/gauge.js/ -->
         <script src="scripts/vendor/gauge.min.js"></script>
@@ -472,8 +959,9 @@
         <!-- Keyboard shortcut defining and dispatching -->
         <script src="scripts/vendor/keymaster.min.js"></script>
 
-        <!-- The go-to library for anything WebGL/Canvas related -->
-        <script src="scripts/vendor/Three.js"></script>
+        <!-- Solr inspired local JSON search -->
+        <script src="scripts/vendor/augment.min.js"></script>
+        <script src="scripts/vendor/lunr.js"></script>
 
         <!-- Drop-in script for detecting offline state -->
         <script src="scripts/vendor/heyoffline.js"></script>
@@ -501,23 +989,25 @@
         <script src="scripts/vendor/numeral.js"></script>
 
         <!-- CSS like selectors for JSON -->
-        <script src="scripts/vendor/jsonselect.js"></script>        
+        <script src="scripts/vendor/jsonselect.js"></script>
 
         <!-- XPATH-like library for JSON -->
-        <script src="scripts/vendor/jspath.min.js"></script>        
+        <script src="scripts/vendor/jspath.min.js"></script>
 
         <!-- Grid/dashboard library by Ducksboard.com -->
-        <script src="scripts/vendor/jquery.gridster.js"></script>        
+        <script src="scripts/vendor/jquery.gridster.js"></script>
 
         <!-- Viewport management, from https://github.com/pazguille/viewport -->
-        <script src="scripts/vendor/viewport.js"></script>        
+        <script src="scripts/vendor/viewport.js"></script>
 
 
         <!-- Backbone -->
-        <script src="scripts/vendor/backbone-0.9.10.js"></script>
-        <script src="scripts/vendor/backbone-localstorage.js"></script>
+        <script src="scripts/vendor/backbone-min.js"></script>
+        <script src="scripts/vendor/backbone-associations-min.js"></script>
+        <script src="scripts/vendor/backbone.fetch-cache.js"></script>
         <script src="scripts/vendor/backbone.babysitter.js"></script>
-        <script src="scripts/vendor/backbone.marionette.js"></script>
+        <script src="scripts/vendor/backbone-localstorage.js"></script>
+        <script src="scripts/vendor/backbone.marionette.min.js"></script>
         <script src="scripts/vendor/backbone.modelbinder.js"></script>
         <script src="scripts/vendor/backbone.collectionbinder.js"></script>
 
@@ -528,33 +1018,95 @@
         <!--<![endif]-->
         <!--[if lte IE 7]><!-->
           <link href="styles/visualsearch.css" media="screen" rel="stylesheet" type="text/css" />
-        <!--<![endif]-->        
+        <!--<![endif]-->
 
         <!-- Twitter Bootstrap base javascript -->
-        <script src="scripts/vendor/bootstrap.js"></script>
+        <script src="scripts/vendor/bootstrap.min.js"></script>
         <!-- <script src="scripts/vendor/fuelux/loader.js"></script> -->
-        
+
         <script src="scripts/vendor/bootstrap-notify.js"></script>
 
         <script src="scripts/lizard/lizard.layerbubble.js"></script>
 
-        <!-- Lizard globals, order matters -->   
-        <script src="localsettings.js"></script>
-        <script src="scripts/lizard/lizard.js"></script>
+        <!-- Jquery Flot stuff -->
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-dev/jquery.flot.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-dev/jquery.flot.navigate.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-dev/jquery.flot.time.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-dev/jquery.flot.resize.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.legendoncanvas.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.touch.nens.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.axislabels.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.tooltip.nens.js"></script>
+        <script type="text/jaFvascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.zoombuttons.nens.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.lazyload.js"></script>
+        <script type="text/javascript" src="scripts/vendor/jquery-flot-plugins/jquery.flot.legendonmouseover.nens.js"></script>
+
+        <!-- Only use raven logging to sentry if on staging or production.
+               i.e. test.dijkdata.nl or dijkdata.nl.
+        <script src="scripts/vendor/raven.min.js"></script>
+        <script type="text/javascript">
+          if (window.location.host.indexOf('dijkdata.nl') !== -1) {
+              Raven.config('https://5cf7a2111d5d4f0b994bd3a83f32f8a9@sentry.lizard.net/5').install();
+          }
+        </script>-->
+
+        <script src="scripts/lizard/lizard.app.js"></script>
+
+        <!-- Models and Layers -->
         <script src="scripts/lizard/lizard.models.js"></script>
+        <script src="scripts/lizard/layers/MapLayer.js"></script>
+        <script src="scripts/lizard/layers/WMSLayer.js"></script>
+        <script src="scripts/lizard/layers/DdscMarkerLayer.js"></script>
+        <script src="scripts/lizard/layers/WMSTemplateLayer.js"></script>
+        <script src="scripts/lizard/layers/custom/DinoLayer.js"></script>
+
+        <!-- Collections -->
         <script src="scripts/lizard/lizard.collections.js"></script>
+
+        <!-- list of locations -->
+        <!--script src="scripts/lizard/listoflocations.js"></script-->
+
+        <!-- Views -->
         <script src="scripts/lizard/lizard.views.js"></script>
+        <script src="scripts/lizard/views/MapLegend.js"></script>
+        <script src="scripts/lizard/views/Map.js"></script>
+        <script src="scripts/lizard/popups/DdscTimeseries.js"></script>
+        <script src="scripts/lizard/views/Timeseries.js"></script>
+        <script src="scripts/lizard/views/WorkspaceList.js"></script>
+        <script src="scripts/lizard/views/ActiveWorkspace.js"></script>
+        <script src="scripts/lizard/views/ExtraLayerList.js"></script>
+        <script src="scripts/lizard/widgets/Widget.js"></script>
+        <script src="scripts/lizard/widgets/GageWidget.js"></script>
+        <script src="scripts/lizard/widgets/TemplateWidget.js"></script>
+        <script src="scripts/lizard/widgets/GraphWidget.js"></script>
+        <script src="scripts/lizard/views/WidgetCollection.js"></script>
+
+        <script src="scripts/lizard/views/CollageList.js"></script>
+        <script src="scripts/lizard/views/FavoriteCollection.js"></script>
+        <script src="scripts/lizard/views/Annotations.js"></script>
+        <script src="scripts/lizard/views/HomePageList.js"></script>
+
+		<!-- Utility code -->
+	    <script src="scripts/utilities.js"></script>
+        <script src="scripts/lizard/lizard.visualsearch.js"></script>
+
 
         <!-- Application code, split into files -->
-        <script src="scripts/utilities.js"></script>
-        <script src="scripts/lizard/lizard.app.js"></script>
         <script src="scripts/lizard/lizard.home.js"></script>
         <script src="scripts/lizard/lizard.help.js"></script>
         <script src="scripts/lizard/lizard.account.js"></script>
         <script src="scripts/lizard/lizard.collage.js"></script>
         <script src="scripts/lizard/lizard.map.js"></script>
         <script src="scripts/lizard/lizard.graph.js"></script>
-        <script src="scripts/lizard/lizard.overview.js"></script>
+        <script src="scripts/lizard/lizard.tabular.js"></script>
+        <script src="scripts/lizard/lizard.dashboard.js"></script>
+        <script src="scripts/lizard/lizard.eventlisteners.js"></script>
+        <script src="scripts/lizard/lizard.dragdrop.js"></script>
+
+        <script src="scripts/lizard/models/Annotation.js"></script>
+        <script src="scripts/lizard/models/Annotations.js"></script>
+        <script src="scripts/lizard/collections/Annotation.js"></script>
+
 
         <!-- Backbone Application bootstrapping -->
         <script type="text/javascript">
@@ -562,7 +1114,6 @@
           Lizard.App.start();
         });
         </script>
-        
 
     </body>
 </html>
