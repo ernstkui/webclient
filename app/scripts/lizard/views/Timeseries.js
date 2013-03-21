@@ -46,5 +46,8 @@ Lizard.Views.Timeseries = Backbone.Marionette.CollectionView.extend({
   initialize: function(){
     console.log('-------->', this.collection);
     // this.collection.fetch();
+  },
+  onShow: function(){
+    dragdroppable($('.add'), $('#drop-one'), $('#drop-two'));
   }
 });
