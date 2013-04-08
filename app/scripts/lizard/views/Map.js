@@ -91,30 +91,41 @@ Lizard.Views.Map = Backbone.Marionette.ItemView.extend({
 
     this.mapCanvas.on('draw:created', function (e) {
       var type = e.layerType,
-        layer = e.layer;
+        layer = e.layer; 
 
       if (type === 'marker') {
         var popup = L.popup({maxWidth:525})
-          .setContent('<div style="height:175px; width:500px;">'+$('#leaflet-annotation-template').html()+'</div>');
+          .setContent(_.template($('#leaflet-annotation-template').html())());
         // Keep things below in this order.
         layer.bindPopup(popup);
         drawnItems.addLayer(layer);
         layer.openPopup();
         //datepicker
-        $('#daterange').daterangepicker(
+        $('.datepick-annotate').datepicker({
+          format: "yyyy-mm-dd",
+          onRender: function ()
            {
-              minDate: '01/01/2010',
-              maxDate: '12/31/2015',
-              showDropdowns: true
-           }
-        );
-        $('form.annotation').submit(function(allthese) {
-          window.originalsdsadf = allthese;
-          
-          // console.log(o.serialize());
-          console.log(allthese);
+              var date = new Date();
+              return date
+           },
+        }).on('changeDate', function(ev){
+          $('.datepick-annotate').datepicker('hide');
         });
-        // Close the popup when clicking the "Save" button.
+        $('form.annotation').submit(function() {
+          var data = $(this).serializeObject();
+          if (data.datetime_from){
+            data.datetime_from = new Date(data.datetime_from).toISOString();
+          }
+          if (data.datetime_until){
+            data.datetime_until = new Date(data.datetime_until).toISOString();          
+          }
+          data.location = layer._latlng.lat.toString() + ',' + layer._latlng.lng.toString()
+          data.category = 'ddsc';
+          $.post(settings.annotations_create_url, $.param(data), function(data){
+            $('.top-right').notify({message:{text: 'FUCK YEAH'}})
+          });
+        });
+        // Close and unbind the popup when clicking the "Save" button.
         // Need to use Leaflet internals because the public API doesn't offer this.
         $(popup._contentNode).find('button[type="submit"]').click(
             function() {
