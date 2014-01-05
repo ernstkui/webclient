@@ -23,12 +23,12 @@ Lizard.Views.Map = Backbone.Marionette.ItemView.extend({
     this.workspace = options.workspace;
     this.backgroundLayers = {
       // Satellite :new L.Google("SATELLITE", {detectRetina: true}),
-	  Waterkaart: = L.tileLayer("https://tiles.lizard.net/tms/1.0.0/basiskaart/webmercator/{z}/{x}/{y}.png", {
+      Waterkaart: = L.tileLayer("https://tiles.lizard.net/tms/1.0.0/basiskaart/webmercator/{z}/{x}/{y}.png", {
         transparant: true,
         reuseTiles: true,
         attribution: "Deltaportaal",
-		zoomOffset: -1,
-		tms: true
+        zoomOffset: -1,
+        tms: true
       }),
 
       OpenStreetMap: new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
